@@ -14,17 +14,15 @@ export const loadPosts = () => ((dispatch) => {
       let normalizedComments;
       let normalizedArticles;
       let normalizedUsers;
-
-      response.data.forEach((post) => {
-        post.comments.forEach(comment => {
-          allComentsFromResponse.push({...comment, "postId": post.id});
-        });
+      
+      for(let i = 0; i < response.data.length; i++) {
+        allComentsFromResponse.concat(response.data[i].comments);
         allArticlesFromResponse.push({
-          "id": post.id,
-          "author": post.author,
-          "title": post.title,
+          "id": response.data[i].id,
+          "author": response.data[i].author,
+          "title": response.data[i].title,
         });
-      });
+      }
 
       normalizedComments = normalize(allComentsFromResponse, arrayOfCommentsWithUser);
       normalizedArticles = normalize(allArticlesFromResponse, arrayOfArticles1);
@@ -33,7 +31,7 @@ export const loadPosts = () => ((dispatch) => {
 
       console.log('====> Comments', normalizedComments);
       console.log('=====> Posts', normalizedArticles);
-      console.log('=====> User', normalizedUsers)
+      console.log('=====> User', normalizedUsers);
       
 
       dispatch({
