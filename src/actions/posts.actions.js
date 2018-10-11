@@ -16,7 +16,7 @@ export const loadPosts = () => ((dispatch) => {
       let normalizedUsers;
       
       for(let i = 0; i < response.data.length; i++) {
-        allComentsFromResponse.concat(response.data[i].comments);
+        allComentsFromResponse = allComentsFromResponse.concat(response.data[i].comments);
         allArticlesFromResponse.push({
           "id": response.data[i].id,
           "author": response.data[i].author,
